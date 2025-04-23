@@ -1,0 +1,2 @@
+Params: {'learning_rate': 6.0702439706973085e-05, 'batch_size': 64, 'epochs': 27}
+Best MSE: 0.06328469902074586
