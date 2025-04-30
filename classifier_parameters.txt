@@ -1,0 +1,5 @@
+Best trial:
+  Accuracy: 0.7914
+  lr: 6.328370964117814e-06
+  dropout: 0.2923625013741183
+  batch_size: 32
