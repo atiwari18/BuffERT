@@ -162,40 +162,9 @@ def create_train_validation_sets(data, stock_list, sequence_length):
 
 
 
-def train_LSTM(X_train, X_test, Y_train, Y_test):
-    
-    model = Sequential()
-    model.add(LSTM(64, return_sequences = False, input_shape=(X_train.shape[1], X_train.shape[2])))
-    model.add(Dropout(0.3))
-    model.add(Dense(units=1, activation='sigmoid'))
-    
-    model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
-    
-    early_stop = EarlyStopping(
-    monitor='val_loss',
-    patience=5,
-    restore_best_weights=True
-    )
-
-    stats = model.fit(X_train, Y_train, epochs=200, batch_size=2, validation_data=(X_test, Y_test), callbacks=[early_stop])
-    plt.plot(stats.history['loss'], label='Train Loss')
-    plt.plot(stats.history['val_loss'], label='Validation Loss')
-    plt.title('LSTM Loss over Epochs')
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.show()
-    
-
-    loss, accuracy = model.evaluate(X_test, Y_test)
-    print("Test Loss:", loss)
-    print("Test Accuracy:", accuracy)
-    return model
-
 
 
 def train_BiLSTM(X_train, X_test, Y_train, Y_test):
-        print(np.mean(Y_train))  # Should be close to 0.5 for balanced binary
 
         model = Sequential()
         model.add(Bidirectional(LSTM(128, return_sequences = True, input_shape=(X_train.shape[1], X_train.shape[2]))))
@@ -209,11 +178,7 @@ def train_BiLSTM(X_train, X_test, Y_train, Y_test):
         
         model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
         
-        #early_stop = EarlyStopping(
-    # monitor='val_loss',
-        #patience=5,
-    # restore_best_weights=True
-        #)
+
         weights = compute_class_weight(class_weight='balanced', classes=np.unique(Y_train), y=Y_train)
         class_weights = {0: weights[0], 1: weights[1]}
 
@@ -239,13 +204,7 @@ def train_BiLSTM(X_train, X_test, Y_train, Y_test):
         print(f"Recall:   {recall:.4f}")
         print(f"F1 Score:  {f1:.4f}")
 
-        # plt.plot(stats.history['loss'], label='Train Loss')
-        # plt.plot(stats.history['val_loss'], label='Validation Loss')
-        # plt.title('LSTM Loss over Epochs')
-        # plt.xlabel('Epoch')
-        # plt.ylabel('Loss')
-        # plt.legend()
-        # plt.show()
+        
         
 
         return model
@@ -315,39 +274,7 @@ def main():
 
     model = train_BiLSTM(X_train, X_test, Y_train, Y_test)
 
- #   forecasts = forecast(model, train_data, 'AAPL', 7)
-
-#     #print(forecasts)
-
-#     # 
-#      #stock_data = forecast_data[forecast_data['Ticker'] == 'AAPL']
-
-#     # sorted_by_date = stock_data.sort_values('Date')
-#     # print(sorted_by_date)
-    
-    # days = 7
-
-    # accuracy_sum = 0
-
-    # for stock in stock_list:
-            
-    #     forecasts = forecast(model, train_data, stock, days)
-
-    #     forecast_data = get_stock_data(stock_list, '2025-01-03', '2025-03-01')
-    #     stock_data = forecast_data[forecast_data['Ticker'] == stock]
-    #     sorted_by_date = stock_data.sort_values('Date')
-        
-    #     #0.4666666666666667
-    #     actual_labels = sorted_by_date['Price Change'].head(days).tolist()
-
-    #     accuracy = accuracy_score(actual_labels, forecasts)
-    #     print(stock)
-    #     print(accuracy)
-    #     accuracy_sum = accuracy_sum + accuracy
-            
-    #     final_accuracy = accuracy_sum/len(stock_list)
-    #     print(final_accuracy)
-
+ 
 
     
 
