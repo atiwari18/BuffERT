@@ -27,3 +27,19 @@ Test Results:
   Confusion Matrix:
 [[ 46  66]
  [ 36 306]]
+
+ Best trial:
+  Accuracy: 0.7472
+  lr: 2.5197545921199586e-05
+  dropout: 0.4726834119193034
+  batch_size: 32
+
+Deeper with weighted
+  Test Results:
+  Accuracy : 0.7313
+  Precision: 0.8216
+  Recall   : 0.8216
+  F1 Score : 0.8216
+  Confusion Matrix:
+[[ 51  61]
+ [ 61 281]]
