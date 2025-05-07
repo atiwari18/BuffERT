@@ -4,3 +4,26 @@
     "epochs": 99,
     "loss": 0.09349903304779503
 }
+Test Results:
+  Accuracy : 0.7555
+  Precision: 0.7984
+  Recall   : 0.9035
+  F1 Score : 0.8477
+  Confusion Matrix:
+[[ 34  78]
+ [ 33 309]
+
+ Best trial:
+ Accuracy: 0.7561
+ lr: 4.6814788274326404e-05
+ dropout: 0.1421205964670695
+ batch_size: 32
+
+ Test Results:
+  Accuracy : 0.7753
+  Precision: 0.8226
+  Recall   : 0.8947
+  F1 Score : 0.8571
+  Confusion Matrix:
+[[ 46  66]
+ [ 36 306]]
